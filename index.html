@@ -1,53 +1,96 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QuickKart — Groceries in 10 Minutes | Demo</title>
+<title>QuickKart — Groceries in 10 Minutes</title>
 <style>
 :root{--green:#0C831F;--yellow:#F7CB15;--dark:#1a1a1a;--grey:#f4f4f4;--line:#e5e5e5}
 *{box-sizing:border-box;font-family:Arial,Helvetica,sans-serif}
 body{margin:0;background:#fff;color:var(--dark)}
-header{background:var(--green);color:#fff;padding:14px 24px;display:flex;gap:20px;align-items:center;position:sticky;top:0;z-index:5}
-header .logo{font-size:26px;font-weight:900}.logo span{color:var(--yellow)}
-header nav a{color:#fff;text-decoration:none;margin-right:16px;font-weight:700}
-header nav a.active{border-bottom:3px solid var(--yellow)}
-header .right{margin-left:auto;font-size:14px}
-.banner{background:var(--yellow);padding:10px 24px;font-weight:700}
+header{background:#fff;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;gap:18px;align-items:center;position:sticky;top:0;z-index:5;flex-wrap:wrap}
+.logo{font-size:28px;font-weight:900;color:var(--green)}.logo span{color:#f7cb15}
+.loc{font-size:14px;line-height:1.3}.loc b{font-size:15px}
+.search{flex:1;min-width:220px;display:flex}.search input{flex:1;padding:11px 14px;border:1px solid #ccc;border-radius:10px 0 0 10px;font-size:15px}.search button{border-radius:0 10px 10px 0}
+.hbtn{background:#fff;color:var(--dark);border:1px solid var(--line);padding:10px 14px;border-radius:10px;font-weight:700;cursor:pointer}
+.cartbtn{background:var(--green);color:#fff;border:none;padding:11px 18px;border-radius:10px;font-weight:800;cursor:pointer;font-size:15px}
+.hero{background:linear-gradient(90deg,#0C831F,#138a2e);color:#fff;padding:28px 24px}
+.hero h1{margin:0;font-size:32px}.hero p{margin:8px 0 0;font-size:17px;opacity:.95}
+.hero .pill{display:inline-block;background:var(--yellow);color:#1a1a1a;font-weight:800;border-radius:20px;padding:6px 14px;margin-top:14px;font-size:14px}
 main{padding:20px 24px;max-width:1200px;margin:auto}
-h1{font-size:26px;margin:6px 0 4px}h2{font-size:20px}.muted{color:#666}
-.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:16px 0}
-.card{border:1px solid var(--line);border-radius:12px;padding:16px;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.06)}
-.card .num{font-size:30px;font-weight:900;color:var(--green)}
-.card .lbl{color:#666;font-size:14px}
-.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}
-input,select,button{padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:15px}
-button{background:var(--green);color:#fff;border:none;cursor:pointer;font-weight:700}
-button.secondary{background:#fff;color:var(--green);border:1px solid var(--green)}
+.chips{display:flex;gap:10px;flex-wrap:wrap;margin:6px 0 18px}
+.chip{padding:9px 16px;border:1px solid var(--line);border-radius:24px;background:#fff;cursor:pointer;font-weight:700;font-size:14px}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+h2{font-size:22px;margin:18px 0 4px}.muted{color:#666;font-size:14px}
 .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
-.prod{border:1px solid var(--line);border-radius:12px;padding:12px}
-.prod .img{font-size:44px;text-align:center;background:var(--grey);border-radius:8px;padding:10px}
-.prod .price{font-weight:900;font-size:18px}.prod .mrp{color:#888;text-decoration:line-through;font-size:13px}
-.badge{display:inline-block;padding:2px 8px;border-radius:20px;font-size:12px;font-weight:700}
-.in{background:#e6f4ea;color:var(--green)}.low{background:#fff3cd;color:#856404}.out{background:#fdecea;color:#b00020}
-table{width:100%;border-collapse:collapse;margin-top:10px}
-th,td{border-bottom:1px solid var(--line);padding:10px;text-align:left;font-size:14px}
-th{background:var(--grey)}
-.status{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:700;background:#e6f4ea;color:var(--green)}
-.status.OUT_FOR_DELIVERY,.status.CONFIRMED{background:#fff3cd;color:#856404}
-.status.DELIVERED{background:#e6f4ea;color:var(--green)}.status.CANCELLED{background:#fdecea;color:#b00020}
-.login{max-width:420px;margin:40px auto;border:1px solid var(--line);border-radius:14px;padding:28px;box-shadow:0 2px 12px rgba(0,0,0,.08)}
-.login input{width:100%;margin:8px 0}.error{color:#b00020;background:#fdecea;padding:10px;border-radius:8px;font-size:14px}
-.bar{display:flex;align-items:flex-end;gap:14px;height:120px;margin-top:10px}
-.bar div{flex:1;background:var(--green);border-radius:6px 6px 0 0;text-align:center;color:#fff;font-size:12px;padding-top:6px}
-.pager{margin:16px 0;color:#666}.hidden{display:none}
-.steps{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.step{background:var(--grey);border-radius:20px;padding:8px 14px;font-weight:700;font-size:13px}.step.on{background:var(--green);color:#fff}
-footer{padding:20px 24px;color:#888;font-size:13px;border-top:1px solid var(--line);margin-top:30px}
+@media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+.prod{border:1px solid var(--line);border-radius:14px;padding:14px}
+.prod .img{font-size:46px;text-align:center;background:var(--grey);border-radius:10px;padding:12px}
+.prod h3{font-size:15px;margin:10px 0 2px}.price{font-weight:900;font-size:18px}.mrp{color:#888;text-decoration:line-through;font-size:13px}
+.off{color:var(--green);font-weight:700;font-size:13px}
+.add{width:100%;margin-top:10px;background:#fff;color:var(--green);border:1.5px solid var(--green);padding:9px;border-radius:9px;font-weight:800;cursor:pointer;font-size:15px}
+.add:hover{background:var(--green);color:#fff}
+.qty{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-top:10px}
+.qty button{background:var(--green);color:#fff;border:none;width:34px;height:34px;border-radius:8px;font-size:18px;font-weight:900;cursor:pointer}
+.qty b{font-size:16px}
+button{padding:10px 14px;border:none;border-radius:9px;font-size:15px;cursor:pointer}
+.btn-green{background:var(--green);color:#fff;font-weight:800}
+.btn-full{width:100%;padding:13px;font-size:16px}
+.drawer{position:fixed;top:0;right:0;width:min(420px,95vw);height:100%;background:#fff;box-shadow:-4px 0 20px rgba(0,0,0,.2);padding:20px;overflow:auto;z-index:20}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:15}
+.hidden{display:none}
+.cartline{display:flex;justify-content:space-between;gap:10px;padding:10px 0;border-bottom:1px solid var(--line);font-size:14px}
+input,select{padding:11px 12px;border:1px solid #ccc;border-radius:8px;font-size:15px;width:100%;margin:6px 0}
+label{font-weight:700;font-size:14px}
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0}.step{background:var(--grey);border-radius:20px;padding:8px 12px;font-weight:700;font-size:13px}.step.on{background:var(--green);color:#fff}
+.ordercard{border:1px solid var(--line);border-radius:12px;padding:16px;margin:12px 0}
+footer{padding:22px 24px;color:#888;font-size:13px;border-top:1px solid var(--line);margin-top:30px;text-align:center}
+footer a{color:var(--green)}
 </style></head><body>
-<header><div class="logo">Quick<span>Kart</span></div><nav id="nav">
-<a href="#/dashboard" data-v="dashboard">Dashboard</a><a href="#/products" data-v="products">Products</a>
-<a href="#/orders" data-v="orders">Orders</a><a href="#/customers" data-v="customers">Customers</a>
-<a href="#/login" data-v="login">Login</a></nav><div class="right" id="who">Not signed in · Demo (no backend needed)</div></header>
-<div class="banner">⚡ Groceries delivered in 10 minutes · Bengaluru · Free delivery above ₹199</div>
-<main id="app"></main>
-<footer>QuickKart — Blinkit-style quick-commerce demo. Mirrors the Angular frontend screens with the same data as the Spring Boot backend. For L&amp;T EduTech — Web design and development, Group 25.</footer>
+<header>
+<div class="logo">quick<span>kart</span></div>
+<div class="loc">Delivery in <b>10 minutes</b><br>Basavanagudi, Bengaluru 560019</div>
+<div class="search"><input id="q" placeholder="Search milk, atta, onion..." oninput="renderProducts()"><button class="btn-green" onclick="renderProducts()">Search</button></div>
+<button class="hbtn" onclick="showMyOrders()">My Orders</button>
+<button class="cartbtn" onclick="openCart()">Cart &middot; <span id="cartCount">0</span> &middot; &#8377;<span id="cartTotalTop">0</span></button>
+</header>
+<div class="hero">
+<h1>Groceries in 10 minutes</h1>
+<p>Fresh milk, vegetables, atta, snacks and more — delivered to your door.</p>
+<span class="pill">Free delivery above &#8377;199 &middot; No minimum order for first order</span>
+</div>
+<main id="main">
+<div id="shopView">
+<h2>Shop by category</h2>
+<div class="chips" id="chips"></div>
+<h2 id="catTitle">All groceries</h2>
+<p class="muted" id="countLine"></p>
+<div class="grid" id="grid"></div>
+</div>
+<div id="ordersView" class="hidden">
+<h2>My Orders</h2>
+<p class="muted">Only your orders, placed from this device. Other customers' orders are never shown here.</p>
+<div id="myOrders"></div>
+<button class="hbtn" onclick="showShop()">&larr; Back to shopping</button>
+</div>
+</main>
+<div id="overlay" class="overlay hidden" onclick="closeCart()"></div>
+<div id="drawer" class="drawer hidden">
+<h2 style="margin-top:0">Your Cart</h2>
+<div id="cartBody"></div>
+<div id="checkoutForm" class="hidden">
+<h3>Delivery details</h3>
+<label>Your name</label><input id="cname" placeholder="e.g. Sujal Yadav">
+<label>Phone</label><input id="cphone" placeholder="10-digit mobile number" maxlength="10">
+<label>Delivery address</label><input id="caddr" value="BMSCE, Bull Temple Road, Basavanagudi, Bengaluru 560019">
+<label>Payment</label><select id="cpay"><option>UPI</option><option>Cash on Delivery</option><option>Card</option></select>
+<div id="cerror" style="color:#b00020;font-size:14px"></div>
+<button class="btn-green btn-full" style="margin-top:10px" onclick="placeOrder()">Place Order &rarr;</button>
+</div>
+<div id="confirmBox" class="hidden"></div>
+<button class="hbtn" style="margin-top:12px" onclick="closeCart()">Close</button>
+</div>
+<footer>
+QuickKart — Blinkit-style quick-commerce web app &middot; L&amp;T EduTech, Web design and development, Group 25<br>
+<span style="font-size:12px">Customers shop here. <a href="demo/index.html">Store manager demo (admin login)</a> is a separate page for the project report.</span>
+</footer>
 <script>
 const CATS=["All","Dairy & Eggs","Atta, Rice & Dals","Vegetables & Fruits","Snacks & Beverages","Household"];
 const PRODUCTS=[
@@ -65,63 +108,65 @@ const PRODUCTS=[
 {id:12,name:"Parle-G Biscuits 200g",cat:"Snacks & Beverages",price:25,mrp:30,stock:0,unit:"200 g",e:"🍪"},
 {id:13,name:"Surf Excel Detergent 1kg",cat:"Household",price:118,mrp:130,stock:55,unit:"1 kg",e:"🧺"},
 {id:14,name:"Himalaya Face Wash 100ml",cat:"Household",price:95,mrp:110,stock:40,unit:"100 ml",e:"🧴"}];
-const CUSTOMERS=[
-{id:1,name:"Sujal Yadav",email:"sujal@example.in",phone:"9876543210",city:"Bengaluru",area:"Basavanagudi (near BMSCE)"},
-{id:2,name:"Ananya Sharma",email:"ananya@example.in",phone:"9876501234",city:"Bengaluru",area:"Jayanagar"},
-{id:3,name:"Rahul Verma",email:"rahul@example.in",phone:"9812345678",city:"Bengaluru",area:"Koramangala"},
-{id:4,name:"Priya Nair",email:"priya@example.in",phone:"9900112233",city:"Bengaluru",area:"Indiranagar"},
-{id:5,name:"Arjun Patel",email:"arjun@example.in",phone:"9988776655",city:"Bengaluru",area:"HSR Layout"}];
-const ORDERS=[
-{id:"ORD-1001",customer:"Sujal Yadav",date:"2026-11-09",items:3,total:342,status:"DELIVERED",slot:"10:00–10:10 AM",pay:"UPI"},
-{id:"ORD-1002",customer:"Ananya Sharma",date:"2026-11-10",items:5,total:512,status:"OUT_FOR_DELIVERY",slot:"11:00–11:10 AM",pay:"UPI"},
-{id:"ORD-1003",customer:"Rahul Verma",date:"2026-11-10",items:2,total:186,status:"CONFIRMED",slot:"12:00–12:10 PM",pay:"COD"},
-{id:"ORD-1004",customer:"Priya Nair",date:"2026-11-10",items:4,total:428,status:"PACKED",slot:"01:00–01:10 PM",pay:"Card"},
-{id:"ORD-1005",customer:"Arjun Patel",date:"2026-11-08",items:6,total:764,status:"DELIVERED",slot:"06:00–06:10 PM",pay:"UPI"},
-{id:"ORD-1006",customer:"Sujal Yadav",date:"2026-11-07",items:1,total:56,status:"CANCELLED",slot:"09:00–09:10 AM",pay:"UPI"}];
-let cart={};
-function badge(p){return p.stock===0?'<span class="badge out">Out of stock</span>':p.stock<10?'<span class="badge low">Low stock · '+p.stock+' left</span>':'<span class="badge in">In stock · '+p.stock+'</span>'}
-function prodCard(p){return `<div class="prod"><div class="img">${p.e}</div><h3 style="font-size:15px;margin:8px 0 2px">${p.name}</h3><div class="muted">${p.unit} · ${p.cat}</div><div style="margin:6px 0"><span class="price">₹${p.price}</span> <span class="mrp">₹${p.mrp}</span></div>${badge(p)}<div style="margin-top:10px"><button onclick="addCart(${p.id})" ${p.stock===0?'disabled style="background:#ccc"':''}>ADD TO CART</button></div></div>`}
-function addCart(id){cart[id]=(cart[id]||0)+1;alert("Added to cart. Cart total: ₹"+cartTotal());}
+let cat="All", cart=JSON.parse(localStorage.getItem("qk_cart")||"{}");
+let myOrders=JSON.parse(localStorage.getItem("qk_orders")||"[]");
+function save(){localStorage.setItem("qk_cart",JSON.stringify(cart));localStorage.setItem("qk_orders",JSON.stringify(myOrders));}
+function cartCount(){return Object.values(cart).reduce((a,b)=>a+b,0)}
 function cartTotal(){return Object.entries(cart).reduce((s,[id,q])=>{const p=PRODUCTS.find(x=>x.id==id);return s+(p?p.price*q:0)},0)}
-function render(){
- const h=location.hash||"#/dashboard"; const v=h.split("/")[1]||"dashboard";
- document.querySelectorAll("#nav a").forEach(a=>a.classList.toggle("active",a.dataset.v===v));
- const app=document.getElementById("app");
- if(v==="login"){app.innerHTML=`<div class="login"><h1>Login</h1><p class="muted">Sign in to QuickKart — Admin or Customer</p>
- <div id="err"></div><label>Email</label><input id="em" placeholder="you@example.in"><label>Password</label><input id="pw" type="password" placeholder="••••••••">
- <button style="width:100%;margin-top:10px" onclick="doLogin()">Login</button>
- <p class="muted" style="font-size:13px">Demo accounts — Admin: admin@quickkart.in / admin123 · Customer: customer@quickkart.in / customer123<br>Empty fields and wrong credentials show an error.</p></div>`;}
- else if(v==="products"){app.innerHTML=`<h1>Products</h1><p class="muted">Browse groceries · delivery in 10 minutes</p>
- <div class="toolbar"><input id="q" placeholder="Search products…" oninput="filterProducts()"><select id="cat" onchange="filterProducts()">${CATS.map(c=>`<option>${c}</option>`).join("")}</select><span class="muted">Cart: <b id="ct">₹${cartTotal()}</b> · <a href="#/checkout">Checkout →</a></span></div>
- <div class="grid" id="grid">${PRODUCTS.map(prodCard).join("")}</div><div class="pager">Showing 1–14 of 14 products · Page 1 of 1 · 10–20 per page</div>`;}
- else if(v==="orders"){app.innerHTML=`<h1>Orders</h1><p class="muted">Search by order ID, customer or date · filter by status</p>
- <div class="toolbar"><input id="oq" placeholder="Search ORD-1001, Sujal, 2026-11-10…" oninput="filterOrders()"><select id="os" onchange="filterOrders()"><option>All statuses</option><option>PLACED</option><option>CONFIRMED</option><option>PACKED</option><option>OUT_FOR_DELIVERY</option><option>DELIVERED</option><option>CANCELLED</option></select></div>
- <table><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Items</th><th>Total</th><th>Slot</th><th>Payment</th><th>Status</th></tr><tbody id="ob">${ORDERS.map(o=>`<tr><td>${o.id}</td><td>${o.customer}</td><td>${o.date}</td><td>${o.items}</td><td>₹${o.total}</td><td>${o.slot}</td><td>${o.pay}</td><td><span class="status ${o.status}">${o.status.replaceAll("_"," ")}</span></td></tr>`).join("")}</tbody></table><div class="pager">Showing 1–6 of 6 orders · Page 1 of 1</div>`;}
- else if(v==="customers"){app.innerHTML=`<h1>Customers</h1><p class="muted">Admin only · search, add and edit customers</p>
- <div class="toolbar"><input placeholder="Search customers…" oninput="this.value;filterCust(this.value)"><button class="secondary">+ Add Customer</button></div>
- <table><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>City</th><th>Area</th></tr><tbody id="cb">${CUSTOMERS.map(c=>`<tr><td>${c.id}</td><td>${c.name}</td><td>${c.email}</td><td>${c.phone}</td><td>${c.city}</td><td>${c.area}</td></tr>`).join("")}</tbody></table><div class="pager">Showing 1–5 of 5 customers · Page 1 of 1</div>`;}
- else if(v==="checkout"){app.innerHTML=`<h1>Checkout — Place Order</h1><div class="steps"><span class="step on">1 Browse</span><span class="step on">2 Cart</span><span class="step on">3 Place Order</span><span class="step">4 Payment</span><span class="step">5 Delivery ~10 min</span><span class="step">6 Feedback</span></div>
- <p>Cart total: <b>₹${cartTotal()||342}</b> (demo order ORD-1007) · Delivery slot: <b>11:00–11:10 AM</b></p>
- <label>Delivery address</label><br><input style="width:60%" value="BMSCE, Bull Temple Road, Basavanagudi, Bengaluru 560019"><br><br>
- <label>Payment</label> <select><option>UPI</option><option>Cash on Delivery</option><option>Card</option></select><br><br>
- <button onclick="alert('Order placed! Order ID ORD-1007 · Arriving in ~10 minutes. Thank you!')">Place Order →</button>
- <p class="muted">Workflow: browse → add to cart → place order → payment → delivery in ~10 minutes → feedback.</p>`;}
- else {app.innerHTML=`<h1>Dashboard</h1><p class="muted">Welcome back, Admin · QuickKart Store, Bengaluru · Today, 10 Nov 2026</p>
- <div class="cards"><div class="card"><div class="num">14</div><div class="lbl">Total Products</div></div><div class="card"><div class="num">5</div><div class="lbl">Customers</div></div><div class="card"><div class="num">6</div><div class="lbl">Orders</div></div><div class="card"><div class="num">₹2,288</div><div class="lbl">Monthly Revenue</div></div></div>
- <h2>Monthly Orders</h2><div class="bar"><div style="height:40%">Jun<br>18</div><div style="height:55%">Jul<br>24</div><div style="height:70%">Aug<br>31</div><div style="height:85%">Sep<br>38</div><div style="height:100%">Oct<br>46</div><div style="height:30%">Nov<br>12</div></div>
- <h2>Top 5 Products</h2><table><tr><th>#</th><th>Product</th><th>Price</th><th>Stock</th></tr>${PRODUCTS.slice(0,5).map((p,i)=>`<tr><td>${i+1}</td><td>${p.name}</td><td>₹${p.price}</td><td>${p.stock}</td></tr>`).join("")}</table>
- <h2>Recent Orders</h2><table><tr><th>Order ID</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr>${ORDERS.slice(0,4).map(o=>`<tr><td>${o.id}</td><td>${o.customer}</td><td>${o.date}</td><td>₹${o.total}</td><td><span class="status ${o.status}">${o.status.replaceAll("_"," ")}</span></td></tr>`).join("")}</table>`;}
+function renderChips(){document.getElementById("chips").innerHTML=CATS.map(c=>`<button class="chip ${c===cat?'on':''}" onclick="setCat('${c}')">${c}</button>`).join("")}
+function setCat(c){cat=c;renderChips();renderProducts()}
+function prodCard(p){
+ const off=Math.round((1-p.price/p.mrp)*100);
+ const inCart=cart[p.id]||0;
+ const btn=p.stock===0?`<button class="add" disabled style="opacity:.5">Out of stock</button>`
+   :inCart===0?`<button class="add" onclick="addCart(${p.id})">ADD</button>`
+   :`<div class="qty"><button onclick="chg(${p.id},-1)">-</button><b>${inCart} in cart</b><button onclick="chg(${p.id},1)">+</button></div>`;
+ return `<div class="prod"><div class="img">${p.e}</div><h3>${p.name}</h3><div class="muted">${p.unit} &middot; ${p.cat}</div>
+ <div style="margin:6px 0"><span class="price">&#8377;${p.price}</span> <span class="mrp">&#8377;${p.mrp}</span> <span class="off">${off}% OFF</span></div>
+ <div class="muted">${p.stock===0?"Currently unavailable":p.stock<10?"Only "+p.stock+" left":"In stock"}</div>${btn}</div>`}
+function renderProducts(){
+ const q=(document.getElementById("q").value||"").toLowerCase();
+ const list=PRODUCTS.filter(p=>(cat==="All"||p.cat===cat)&&p.name.toLowerCase().includes(q));
+ document.getElementById("catTitle").textContent=cat==="All"?"All groceries":cat;
+ document.getElementById("countLine").textContent=list.length+" products &middot; Delivery in 10 minutes";
+ document.getElementById("grid").innerHTML=list.map(prodCard).join("")||"<p>No products match your search.</p>";
+ document.getElementById("cartCount").textContent=cartCount();
+ document.getElementById("cartTotalTop").textContent=cartTotal();
 }
-function doLogin(){const e=document.getElementById("em").value.trim(),p=document.getElementById("pw").value;
- const err=document.getElementById("err");
- if(!e||!p){err.innerHTML='<div class="error">Email and password are required.</div>';return;}
- if(!((e==="admin@quickkart.in"&&p==="admin123")||(e==="customer@quickkart.in"&&p==="customer123"))){err.innerHTML='<div class="error">Invalid credentials — please check your email and password and try again.</div>';return;}
- document.getElementById("who").textContent="Signed in as "+(e.startsWith("admin")?"Admin":"Customer")+" · "+e;
- location.hash="#/dashboard";render();}
-function filterProducts(){const q=(document.getElementById("q").value||"").toLowerCase(),c=document.getElementById("cat").value;
- document.getElementById("grid").innerHTML=PRODUCTS.filter(p=>(c==="All"||p.cat===c)&&p.name.toLowerCase().includes(q)).map(prodCard).join("")||"<p>No products match.</p>";}
-function filterOrders(){const q=(document.getElementById("oq").value||"").toLowerCase(),s=document.getElementById("os").value;
- document.getElementById("ob").innerHTML=ORDERS.filter(o=>(s==="All statuses"||o.status===s)&&(o.id+" "+o.customer+" "+o.date).toLowerCase().includes(q)).map(o=>`<tr><td>${o.id}</td><td>${o.customer}</td><td>${o.date}</td><td>${o.items}</td><td>₹${o.total}</td><td>${o.slot}</td><td>${o.pay}</td><td><span class="status ${o.status}">${o.status.replaceAll("_"," ")}</span></td></tr>`).join("");}
-function filterCust(q){q=q.toLowerCase();document.getElementById("cb").innerHTML=CUSTOMERS.filter(c=>(c.name+" "+c.email+" "+c.phone).toLowerCase().includes(q)).map(c=>`<tr><td>${c.id}</td><td>${c.name}</td><td>${c.email}</td><td>${c.phone}</td><td>${c.city}</td><td>${c.area}</td></tr>`).join("");}
-window.addEventListener("hashchange",render);render();
+function addCart(id){cart[id]=(cart[id]||0)+1;save();renderProducts()}
+function chg(id,d){cart[id]=(cart[id]||0)+d;if(cart[id]<=0)delete cart[id];save();renderProducts();renderCart()}
+function openCart(){renderCart();document.getElementById("drawer").classList.remove("hidden");document.getElementById("overlay").classList.remove("hidden")}
+function closeCart(){document.getElementById("drawer").classList.add("hidden");document.getElementById("overlay").classList.add("hidden");document.getElementById("confirmBox").classList.add("hidden")}
+function renderCart(){
+ const total=cartTotal(), fee=total===0?0:(total>=199?0:25);
+ const lines=Object.entries(cart).map(([id,q])=>{const p=PRODUCTS.find(x=>x.id==id);return `<div class="cartline"><span>${p.e} ${p.name} &times; ${q}</span><b>&#8377;${p.price*q}</b></div>`}).join("");
+ document.getElementById("cartBody").innerHTML=total===0?"<p>Your cart is empty. Add some groceries to get started.</p>"
+  :lines+`<div class="cartline"><span>Delivery fee ${total>=199?"(free above &#8377;199)":""}</span><b>${fee===0?"FREE":"&#8377;"+fee}</b></div><div class="cartline"><span><b>To pay</b></span><b>&#8377;${total+fee}</b></div>`;
+ document.getElementById("checkoutForm").classList.toggle("hidden",total===0);
+}
+function placeOrder(){
+ const name=document.getElementById("cname").value.trim(), phone=document.getElementById("cphone").value.trim(), addr=document.getElementById("caddr").value.trim();
+ const err=document.getElementById("cerror");
+ if(!name||!phone||!addr){err.textContent="Please fill in your name, phone and address.";return}
+ if(!/^[6-9]\d{9}$/.test(phone)){err.textContent="Please enter a valid 10-digit mobile number.";return}
+ const total=cartTotal(), fee=total>=199?0:25;
+ const id="ORD-"+(1007+myOrders.length);
+ const order={id,total:total+fee,date:new Date().toLocaleString("en-IN"),items:Object.entries(cart).map(([pid,q])=>{const p=PRODUCTS.find(x=>x.id==pid);return p.name+" x "+q}).join(", "),pay:document.getElementById("cpay").value,name};
+ myOrders.unshift(order); cart={}; save(); renderProducts();
+ document.getElementById("checkoutForm").classList.add("hidden");
+ document.getElementById("cartBody").innerHTML="";
+ document.getElementById("confirmBox").classList.remove("hidden");
+ document.getElementById("confirmBox").innerHTML=`<h3>Order placed, ${name}!</h3><p><b>${id}</b> &middot; Total &#8377;${order.total} &middot; ${order.pay}</p>
+ <div class="steps"><span class="step on">Order placed</span><span class="step on">Confirmed</span><span class="step">Packing</span><span class="step">Out for delivery</span><span class="step">Delivered ~10 min</span></div>
+ <p class="muted">Delivering to: ${addr}. Track it anytime under My Orders.</p>
+ <button class="btn-green btn-full" onclick="closeCart();showMyOrders()">Track my order &rarr;</button>`;
+}
+function showMyOrders(){
+ document.getElementById("shopView").classList.add("hidden");document.getElementById("ordersView").classList.remove("hidden");window.scrollTo(0,0);
+ document.getElementById("myOrders").innerHTML=myOrders.length===0?"<p>You have no orders yet. Place your first order and it will appear here.</p>"
+  :myOrders.map(o=>`<div class="ordercard"><b>${o.id}</b> &middot; ${o.date}<br>${o.items}<br>Total <b>&#8377;${o.total}</b> &middot; ${o.pay}
+  <div class="steps"><span class="step on">Placed</span><span class="step on">Confirmed</span><span class="step">Packing</span><span class="step">Out for delivery</span><span class="step">Delivered ~10 min</span></div></div>`).join("");
+}
+function showShop(){document.getElementById("ordersView").classList.add("hidden");document.getElementById("shopView").classList.remove("hidden")}
+renderChips();renderProducts();
 </script></body></html>
