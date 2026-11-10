@@ -1,0 +1,26 @@
+<header class="navbar" *ngIf="auth.isLoggedIn()">
+  <a class="brand" routerLink="/dashboard">
+    <span class="brand-mark">⚡</span>
+    <span class="brand-text">QuickKart</span>
+    <span class="brand-tag">Groceries in 10 minutes</span>
+  </a>
+  <nav class="nav-links">
+    <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
+    <a routerLink="/products" routerLinkActive="active">Products</a>
+    <a routerLink="/cart" routerLinkActive="active">Cart ({{ cart.getCount() }})</a>
+    <a routerLink="/orders" routerLinkActive="active">Orders</a>
+    <a *ngIf="auth.isAdmin()" routerLink="/customers" routerLinkActive="active">Customers</a>
+  </nav>
+  <div class="nav-user">
+    <span class="user-chip">{{ auth.getCurrentUser()?.name }} · {{ auth.getRole() }}</span>
+    <button class="btn-yellow btn-sm" (click)="logout()">Logout</button>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="footer">
+  <p>QuickKart — Blinkit-style quick commerce · L&amp;T EduTech project “Use case Diagram in UX Process”</p>
+</footer>

@@ -1,0 +1,51 @@
+<div class="page">
+  <h1>Orders</h1>
+  <p class="subtitle">{{ filteredOrders.length }} order(s) · update status as orders move from placed to delivered.</p>
+
+  <div class="toolbar">
+    <div class="field">
+      <label for="search">Search by order id, customer or date</label>
+      <input id="search" type="search" placeholder="e.g. 1002, Priya, 2026-11-10" [(ngModel)]="searchText" (ngModelChange)="onFilterChange()">
+    </div>
+    <div class="field">
+      <label for="status">Status</label>
+      <select id="status" [(ngModel)]="selectedStatus" (ngModelChange)="onFilterChange()">
+        <option value="">All statuses</option>
+        <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="success-box" *ngIf="updateMessage">{{ updateMessage }}</div>
+  <p *ngIf="loading" class="muted">Loading orders…</p>
+
+  <div class="card" *ngIf="!loading">
+    <table *ngIf="pagedOrders.length; else noOrders">
+      <thead>
+        <tr><th>Order</th><th>Customer</th><th>Date</th><th>Items</th><th>Total</th><th>Status</th><th>Update status</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of pagedOrders">
+          <td>#{{ order.id }}</td>
+          <td>{{ order.customerName || ('Customer ' + order.customerId) }}</td>
+          <td>{{ order.orderDate | date:'dd MMM yyyy, h:mm a' }}</td>
+          <td>{{ order.items.length }} item(s)</td>
+          <td>₹{{ order.totalAmount | number:'1.0-0' }}</td>
+          <td><span class="badge" [ngClass]="statusClass(order.status)">{{ order.status }}</span></td>
+          <td>
+            <select [ngModel]="order.status" (ngModelChange)="onStatusChange(order, $event)" aria-label="Update status for order {{ order.id }}">
+              <option *ngFor="let s of statuses" [value]="s">{{ s }}</option>
+            </select>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noOrders><p class="muted">No orders match your search.</p></ng-template>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="btn-outline btn-sm" (click)="prevPage()" [disabled]="page === 1">← Prev</button>
+    <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+    <button class="btn-outline btn-sm" (click)="nextPage()" [disabled]="page === totalPages">Next →</button>
+  </div>
+</div>

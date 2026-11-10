@@ -1,0 +1,128 @@
+/* QuickKart — Blinkit-style theme
+   Green #0C831F · Yellow #F7CB15 · white cards, rounded corners */
+:root {
+  --green: #0c831f;
+  --green-dark: #0a6b19;
+  --green-light: #e8f5e9;
+  --yellow: #f7cb15;
+  --yellow-dark: #e0b400;
+  --ink: #1c1c1c;
+  --muted: #666666;
+  --line: #e8e8e8;
+  --bg: #f7f7f7;
+  --card: #ffffff;
+  --red: #d32f2f;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+a { color: var(--green); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.btn-primary { background: var(--green); color: #fff; }
+.btn-primary:hover { background: var(--green-dark); }
+.btn-primary:disabled { background: #a5d6a7; cursor: not-allowed; }
+.btn-yellow { background: var(--yellow); color: var(--ink); }
+.btn-yellow:hover { background: var(--yellow-dark); }
+.btn-outline { background: #fff; color: var(--green); border: 1px solid var(--green); }
+.btn-danger { background: var(--red); color: #fff; }
+.btn-sm { padding: 6px 12px; font-size: 13px; }
+
+input, select, textarea {
+  font-family: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  background: #fff;
+}
+input:focus, select:focus, textarea:focus {
+  outline: 2px solid var(--green);
+  outline-offset: 0;
+  border-color: var(--green);
+}
+input.ng-invalid.ng-touched, select.ng-invalid.ng-touched, textarea.ng-invalid.ng-touched {
+  border-color: var(--red);
+}
+
+label { display: block; font-weight: 600; font-size: 13px; margin: 12px 0 6px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.page { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+.page h1 { font-size: 24px; margin: 0 0 4px; }
+.page .subtitle { color: var(--muted); margin: 0 0 20px; }
+
+.error { color: var(--red); font-size: 13px; margin-top: 4px; }
+.error-box {
+  background: #fdecea;
+  color: var(--red);
+  border: 1px solid #f5c6cb;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 12px 0;
+  font-size: 14px;
+}
+.success-box {
+  background: var(--green-light);
+  color: var(--green-dark);
+  border: 1px solid #a5d6a7;
+  border-radius: 8px;
+  padding: 10px 12px;
+  margin: 12px 0;
+  font-size: 14px;
+}
+.muted { color: var(--muted); }
+.toolbar { display: flex; gap: 12px; flex-wrap: wrap; align-items: end; margin-bottom: 16px; }
+.toolbar .field { flex: 1; min-width: 180px; }
+.toolbar .field label { margin-top: 0; }
+
+table { width: 100%; border-collapse: collapse; font-size: 14px; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+th { color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+}
+.badge-green { background: var(--green-light); color: var(--green-dark); }
+.badge-yellow { background: #fff8d6; color: #7a5c00; }
+.badge-red { background: #fdecea; color: var(--red); }
+.badge-grey { background: #eee; color: #555; }
+
+.pagination { display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 20px; }
+.pagination button { padding: 6px 12px; }
+.pagination .page-info { font-size: 14px; color: var(--muted); }
+
+@media (max-width: 640px) {
+  .page { padding: 16px 12px 32px; }
+  .toolbar { flex-direction: column; align-items: stretch; }
+}

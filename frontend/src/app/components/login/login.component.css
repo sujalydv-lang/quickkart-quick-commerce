@@ -1,0 +1,22 @@
+.login-page { display: flex; justify-content: center; padding: 48px 16px; }
+.login-card { width: 100%; max-width: 420px; }
+.login-brand { text-align: center; margin-bottom: 8px; }
+.login-brand h1 { margin: 8px 0 0; color: var(--green); }
+.brand-mark {
+  background: var(--yellow);
+  border-radius: 10px;
+  padding: 6px 12px;
+  font-size: 24px;
+}
+.login-btn { width: 100%; margin-top: 20px; padding: 12px; font-size: 15px; }
+.demo-box {
+  margin-top: 20px;
+  background: #fff8d6;
+  border: 1px solid #f0d96a;
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: 13px;
+}
+.demo-box p { margin: 4px 0; }
+.demo-buttons { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+code { background: #fff; padding: 1px 5px; border-radius: 4px; }

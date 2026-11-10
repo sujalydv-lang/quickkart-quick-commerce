@@ -1,0 +1,31 @@
+<!DOCTYPE html><html><head><meta charset="UTF-8"><title>API & Database — QuickKart</title>
+<style>body{font-family:Arial,sans-serif;margin:0}header{background:#0C831F;color:#fff;padding:14px 24px;font-size:22px;font-weight:900}header span{color:#F7CB15}main{padding:20px 24px;max-width:1200px;margin:auto}h2{color:#0C831F}table{width:100%;border-collapse:collapse;margin:10px 0}th,td{border:1px solid #ddd;padding:8px;text-align:left;font-size:14px}th{background:#f4f4f4}.get{color:#0C831F;font-weight:700}.post{color:#b26a00;font-weight:700}.put{color:#1565c0;font-weight:700}.del{color:#b00020;font-weight:700}</style></head><body>
+<header>Quick<span>Kart</span> — Postman API &amp; MySQL Database</header><main>
+<h2>Postman Collection — 16 REST Endpoints (baseUrl http://localhost:8080)</h2>
+<table><tr><th>Method</th><th>Endpoint</th><th>Purpose</th></tr>
+<tr><td class="get">GET</td><td>/api/categories</td><td>List categories (search, page, size)</td></tr>
+<tr><td class="post">POST</td><td>/api/categories</td><td>Create category</td></tr>
+<tr><td class="put">PUT</td><td>/api/categories/{id}</td><td>Update category</td></tr>
+<tr><td class="del">DELETE</td><td>/api/categories/{id}</td><td>Delete category (blocked if it has products)</td></tr>
+<tr><td class="get">GET</td><td>/api/products</td><td>List products (search, categoryId, page)</td></tr>
+<tr><td class="post">POST</td><td>/api/products</td><td>Create product</td></tr>
+<tr><td class="put">PUT</td><td>/api/products/{id}</td><td>Update product / stock</td></tr>
+<tr><td class="del">DELETE</td><td>/api/products/{id}</td><td>Delete product (blocked if in an active order)</td></tr>
+<tr><td class="get">GET</td><td>/api/customers</td><td>List customers (search, page)</td></tr>
+<tr><td class="post">POST</td><td>/api/customers</td><td>Create customer</td></tr>
+<tr><td class="put">PUT</td><td>/api/customers/{id}</td><td>Update customer</td></tr>
+<tr><td class="del">DELETE</td><td>/api/customers/{id}</td><td>Delete customer (blocked if active order)</td></tr>
+<tr><td class="get">GET</td><td>/api/orders</td><td>List orders (search, status, page)</td></tr>
+<tr><td class="post">POST</td><td>/api/orders</td><td>Place order (qty 1–20, stock checked)</td></tr>
+<tr><td class="put">PUT</td><td>/api/orders/{id}</td><td>Update order status</td></tr>
+<tr><td class="del">DELETE</td><td>/api/orders/{id}</td><td>Cancel / delete order (stock restored)</td></tr></table>
+<p>Postman collection file: <b>postman_collection.json</b> — import into Postman, set {{baseUrl}} to http://localhost:8080, run the 16 requests in order.</p>
+<h2>MySQL Database — quickcommerce_db (5 tables)</h2>
+<table><tr><th>Table</th><th>Primary Key</th><th>Foreign Keys</th><th>Key columns</th></tr>
+<tr><td>product_categories</td><td>category_id</td><td>—</td><td>name UNIQUE, description, image_url, active</td></tr>
+<tr><td>products</td><td>product_id</td><td>category_id → product_categories</td><td>name, price &gt; 0, stock_quantity ≥ 0, unit, image_url</td></tr>
+<tr><td>customers</td><td>customer_id</td><td>—</td><td>name, email UNIQUE, phone UNIQUE, address, city, pincode</td></tr>
+<tr><td>orders</td><td>order_id</td><td>customer_id → customers</td><td>order_date, delivery_slot, status, total_amount, payment_method</td></tr>
+<tr><td>order_items</td><td>order_item_id</td><td>order_id → orders, product_id → products</td><td>quantity CHECK 1–20, price_at_order</td></tr></table>
+<p>Schema file: <b>database.sql</b> — 5 categories, 18 products, 5 customers, 5 orders, 11 order items (sample data included).</p>
+</main></body></html>

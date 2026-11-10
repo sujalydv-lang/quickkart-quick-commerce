@@ -1,0 +1,75 @@
+<div class="page">
+  <h1>Customers</h1>
+  <p class="subtitle">{{ filteredCustomers.length }} customer(s) · admin only.</p>
+
+  <div class="toolbar">
+    <div class="field">
+      <label for="search">Search by name, email or phone</label>
+      <input id="search" type="search" placeholder="e.g. Priya, priya@example.com" [(ngModel)]="searchText" (ngModelChange)="onSearchChange()">
+    </div>
+    <button class="btn-primary" (click)="openAddForm()">+ Add customer</button>
+  </div>
+
+  <div class="success-box" *ngIf="message">{{ message }}</div>
+  <div class="error-box" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+  <div class="card" *ngIf="showForm">
+    <h2>{{ editingId === null ? 'Add customer' : 'Edit customer' }}</h2>
+    <form [formGroup]="customerForm" (ngSubmit)="saveCustomer()" novalidate>
+      <label for="name">Name</label>
+      <input id="name" type="text" formControlName="name" placeholder="Full name">
+      <div class="error" *ngIf="name?.invalid && name?.touched">Name is required (at least 2 characters).</div>
+
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="you@example.com">
+      <div class="error" *ngIf="email?.invalid && email?.touched">
+        <span *ngIf="email?.errors?.['required']">Email is required.</span>
+        <span *ngIf="email?.errors?.['email']">Enter a valid email address.</span>
+      </div>
+
+      <label for="phone">Phone (10-digit Indian mobile)</label>
+      <input id="phone" type="tel" formControlName="phone" placeholder="9876543210" maxlength="10">
+      <div class="error" *ngIf="phone?.invalid && phone?.touched">
+        Enter a valid 10-digit Indian mobile number starting with 6–9.
+      </div>
+
+      <label for="address">Address</label>
+      <textarea id="address" rows="2" formControlName="address" placeholder="Area, city"></textarea>
+      <div class="error" *ngIf="address?.invalid && address?.touched">Address is required.</div>
+
+      <div class="form-actions">
+        <button class="btn-primary" type="submit">{{ editingId === null ? 'Add customer' : 'Save changes' }}</button>
+        <button class="btn-outline" type="button" (click)="cancelForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+
+  <p *ngIf="loading" class="muted">Loading customers…</p>
+
+  <div class="card" *ngIf="!loading">
+    <table *ngIf="pagedCustomers.length; else noCustomers">
+      <thead>
+        <tr><th>Name</th><th>Email</th><th>Phone</th><th>Address</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let c of pagedCustomers">
+          <td>{{ c.name }}</td>
+          <td>{{ c.email }}</td>
+          <td>{{ c.phone }}</td>
+          <td>{{ c.address }}</td>
+          <td class="actions">
+            <button class="btn-outline btn-sm" (click)="openEditForm(c)">Edit</button>
+            <button class="btn-danger btn-sm" (click)="deleteCustomer(c)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noCustomers><p class="muted">No customers match your search.</p></ng-template>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="btn-outline btn-sm" (click)="prevPage()" [disabled]="page === 1">← Prev</button>
+    <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+    <button class="btn-outline btn-sm" (click)="nextPage()" [disabled]="page === totalPages">Next →</button>
+  </div>
+</div>

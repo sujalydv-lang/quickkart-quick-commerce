@@ -1,0 +1,72 @@
+<div class="page">
+  <h1>Dashboard</h1>
+  <p class="subtitle">QuickKart at a glance — orders, products and revenue.</p>
+
+  <p *ngIf="loading" class="muted">Loading…</p>
+
+  <div class="stat-grid" *ngIf="!loading">
+    <div class="card stat">
+      <span class="stat-label">Total products</span>
+      <span class="stat-value">{{ totalProducts }}</span>
+      <a routerLink="/products">View products →</a>
+    </div>
+    <div class="card stat">
+      <span class="stat-label">Total customers</span>
+      <span class="stat-value">{{ totalCustomers }}</span>
+      <a routerLink="/customers">View customers →</a>
+    </div>
+    <div class="card stat">
+      <span class="stat-label">Total orders</span>
+      <span class="stat-value">{{ totalOrders }}</span>
+      <a routerLink="/orders">View orders →</a>
+    </div>
+    <div class="card stat stat-revenue">
+      <span class="stat-label">Monthly revenue</span>
+      <span class="stat-value">₹{{ monthlyRevenue | number:'1.0-0' }}</span>
+      <span class="muted">This month, excl. cancelled</span>
+    </div>
+  </div>
+
+  <div class="dash-grid" *ngIf="!loading">
+    <section class="card">
+      <h2>Recent orders</h2>
+      <table *ngIf="recentOrders.length; else noOrders">
+        <thead>
+          <tr><th>Order</th><th>Customer</th><th>Date</th><th>Total</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of recentOrders">
+            <td>#{{ order.id }}</td>
+            <td>{{ order.customerName || ('Customer ' + order.customerId) }}</td>
+            <td>{{ order.orderDate | date:'dd MMM yyyy' }}</td>
+            <td>₹{{ order.totalAmount | number:'1.0-0' }}</td>
+            <td><span class="badge" [ngClass]="statusClass(order.status)">{{ order.status }}</span></td>
+          </tr>
+        </tbody>
+      </table>
+      <ng-template #noOrders><p class="muted">No orders yet.</p></ng-template>
+    </section>
+
+    <section class="card">
+      <h2>Top 5 products by stock</h2>
+      <ol class="top-list" *ngIf="topProducts.length; else noProducts">
+        <li *ngFor="let p of topProducts">
+          <span>{{ p.name }} <span class="muted">({{ p.unit }})</span></span>
+          <strong>₹{{ p.price }} · {{ p.stockQuantity }} in stock</strong>
+        </li>
+      </ol>
+      <ng-template #noProducts><p class="muted">No products yet.</p></ng-template>
+    </section>
+  </div>
+
+  <section class="card chart-card" *ngIf="!loading">
+    <h2>Monthly orders — last 6 months</h2>
+    <div class="bar-chart">
+      <div class="bar-col" *ngFor="let m of monthBars">
+        <div class="bar-value">{{ m.count }}</div>
+        <div class="bar" [style.height.px]="Math.max(m.heightPct * 1.2, m.count ? 8 : 2)"></div>
+        <div class="bar-label">{{ m.label }}</div>
+      </div>
+    </div>
+  </section>
+</div>

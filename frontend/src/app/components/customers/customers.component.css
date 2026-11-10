@@ -1,0 +1,4 @@
+.form-actions { display: flex; gap: 12px; margin-top: 20px; }
+.actions { white-space: nowrap; }
+.actions button + button { margin-left: 8px; }
+.card + .card { margin-top: 16px; }

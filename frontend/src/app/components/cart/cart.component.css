@@ -1,0 +1,26 @@
+.cart-layout { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; align-items: start; }
+.cart-row {
+  display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+  padding: 12px 0; border-bottom: 1px solid var(--line);
+}
+.cart-info { flex: 1; min-width: 160px; display: flex; flex-direction: column; }
+.qty-controls { display: flex; align-items: center; gap: 8px; }
+.qty { min-width: 20px; text-align: center; font-weight: 700; }
+.cart-total {
+  display: grid; grid-template-columns: 1fr auto; gap: 6px;
+  padding-top: 14px; font-size: 15px;
+}
+h2 { font-size: 17px; margin: 0 0 4px; }
+.payment-options { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 4px; }
+.payment-options .radio { display: flex; align-items: center; gap: 6px; font-weight: 400; margin: 0; }
+.payment-options input { width: auto; }
+.checkout-btn { width: 100%; margin-top: 20px; padding: 12px; }
+.confirmation { text-align: center; max-width: 520px; margin: 32px auto; padding: 32px; }
+.confirm-mark {
+  width: 64px; height: 64px; margin: 0 auto 12px;
+  background: var(--green); color: #fff; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-size: 32px;
+}
+.confirm-actions { display: flex; gap: 12px; justify-content: center; margin-top: 20px; flex-wrap: wrap; }
+.confirm-actions a:hover { text-decoration: none; }
+@media (max-width: 800px) { .cart-layout { grid-template-columns: 1fr; } }

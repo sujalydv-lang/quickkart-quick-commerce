@@ -1,0 +1,40 @@
+<div class="login-page">
+  <div class="card login-card">
+    <div class="login-brand">
+      <span class="brand-mark">⚡</span>
+      <h1>QuickKart</h1>
+      <p class="muted">Groceries in 10 minutes</p>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" placeholder="you@example.com" autocomplete="email">
+      <div class="error" *ngIf="email?.invalid && email?.touched">
+        <span *ngIf="email?.errors?.['required']">Email is required.</span>
+        <span *ngIf="email?.errors?.['email']">Enter a valid email address.</span>
+      </div>
+
+      <label for="password">Password</label>
+      <input id="password" type="password" formControlName="password" placeholder="Your password" autocomplete="current-password">
+      <div class="error" *ngIf="password?.invalid && password?.touched">
+        Password is required.
+      </div>
+
+      <div class="error-box" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <button class="btn-primary login-btn" type="submit" [disabled]="submitting">
+        {{ submitting ? 'Signing in…' : 'Sign in' }}
+      </button>
+    </form>
+
+    <div class="demo-box">
+      <p><strong>Demo credentials</strong></p>
+      <p>Admin — <code>admin@blinkit.in</code> / <code>admin123</code></p>
+      <p>Customer — <code>customer@blinkit.in</code> / <code>customer123</code></p>
+      <div class="demo-buttons">
+        <button class="btn-outline btn-sm" type="button" (click)="useDemo('admin')">Use admin demo</button>
+        <button class="btn-outline btn-sm" type="button" (click)="useDemo('customer')">Use customer demo</button>
+      </div>
+    </div>
+  </div>
+</div>

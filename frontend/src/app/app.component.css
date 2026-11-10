@@ -1,0 +1,36 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+  background: var(--green);
+  color: #fff;
+  padding: 12px 24px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.brand { display: flex; align-items: baseline; gap: 8px; color: #fff; }
+.brand:hover { text-decoration: none; }
+.brand-mark {
+  background: var(--yellow);
+  color: var(--ink);
+  border-radius: 8px;
+  padding: 2px 8px;
+  font-size: 18px;
+}
+.brand-text { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+.brand-tag { font-size: 12px; color: #d7ecd9; }
+.nav-links { display: flex; gap: 4px; flex-wrap: wrap; }
+.nav-links a {
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+}
+.nav-links a:hover { background: rgba(255, 255, 255, 0.15); text-decoration: none; }
+.nav-links a.active { background: var(--yellow); color: var(--ink); }
+.nav-user { margin-left: auto; display: flex; align-items: center; gap: 12px; }
+.user-chip { font-size: 13px; color: #e8f5e9; }
+.footer { text-align: center; color: var(--muted); font-size: 13px; padding: 24px 16px; }

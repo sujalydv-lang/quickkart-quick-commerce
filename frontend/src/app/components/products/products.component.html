@@ -1,0 +1,45 @@
+<div class="page">
+  <h1>Products</h1>
+  <p class="subtitle">Groceries delivered in 10 minutes — {{ filteredProducts.length }} item(s) found.</p>
+
+  <div class="toolbar">
+    <div class="field">
+      <label for="search">Search</label>
+      <input id="search" type="search" placeholder="Search milk, atta, onion…" [(ngModel)]="searchText" (ngModelChange)="onFilterChange()">
+    </div>
+    <div class="field">
+      <label for="category">Category</label>
+      <select id="category" [(ngModel)]="selectedCategoryId" (ngModelChange)="onFilterChange()">
+        <option [ngValue]="0">All categories</option>
+        <option *ngFor="let c of categories" [ngValue]="c.id">{{ c.name }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="success-box" *ngIf="addedMessage">{{ addedMessage }}</div>
+  <p *ngIf="loading" class="muted">Loading products…</p>
+  <p *ngIf="!loading && pagedProducts.length === 0" class="muted">No products match your search.</p>
+
+  <div class="product-grid">
+    <article class="card product-card" *ngFor="let p of pagedProducts">
+      <div class="product-image" [title]="p.name">{{ p.name.charAt(0) }}</div>
+      <span class="badge" [ngClass]="stockClass(p)">{{ stockLabel(p) }}</span>
+      <h3>{{ p.name }}</h3>
+      <p class="muted product-desc">{{ p.description }}</p>
+      <p class="product-meta">{{ p.unit }} · {{ categoryName(p.categoryId) }}</p>
+      <div class="product-footer">
+        <strong class="price">₹{{ p.price }}</strong>
+        <button class="btn-primary btn-sm" (click)="addToCart(p)" [disabled]="p.stockQuantity <= 0 || !p.active">
+          Add to cart
+        </button>
+      </div>
+      <p class="muted stock-note" *ngIf="p.stockQuantity > 0">{{ p.stockQuantity }} left in stock</p>
+    </article>
+  </div>
+
+  <div class="pagination" *ngIf="totalPages > 1">
+    <button class="btn-outline btn-sm" (click)="prevPage()" [disabled]="page === 1">← Prev</button>
+    <span class="page-info">Page {{ page }} of {{ totalPages }}</span>
+    <button class="btn-outline btn-sm" (click)="nextPage()" [disabled]="page === totalPages">Next →</button>
+  </div>
+</div>
